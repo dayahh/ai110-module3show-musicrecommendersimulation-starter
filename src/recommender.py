@@ -78,8 +78,8 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 # --- Algorithm Recipe weights (tune these to change how the recommender behaves) ---
-GENRE_WEIGHT = 2.0   # exact genre match
-MOOD_WEIGHT = 1.0    # exact mood match
+GENRE_WEIGHT = 1.0   # exact genre match
+MOOD_WEIGHT = 2.0    # exact mood match (weighted higher — mood matters most)
 ENERGY_WEIGHT = 1.0  # how close the song's energy is to the user's target
 
 

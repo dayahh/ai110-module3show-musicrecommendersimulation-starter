@@ -13,6 +13,10 @@ Your goal is to:
 
 Replace this paragraph with your own summary of what your version does.
 
+- Users create a test profile
+- Profile is judged based off my algo
+- Mood is heavily weighed, so reccs are based off that mostly
+
 ---
 
 ## How The System Works
@@ -127,6 +131,38 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+Different types of users:
+A. Chill-but-hyped
+- genre=lofi, mood=chill, energy=0.95
+OUTPUT
+USER WANTS: high energy (0.95), but mood=chill + genre=lofi (both low-energy)
+------------------------------------------------------------------------
+ 3.47  Midnight Coding      energy=0.42  [genre match (+1.0), mood match (+2.0), energy close (+0.47)]
+ 3.40  Library Rain         energy=0.35  [genre match (+1.0), mood match (+2.0), energy close (+0.40)]
+ 2.33  Spacewalk Thoughts   energy=0.28  [mood match (+2.0), energy close (+0.33)]
+ 1.45  Focus Flow           energy=0.40  [genre match (+1.0), energy close (+0.45)]
+ 1.00  Neon Overdrive       energy=0.95  [energy close (+1.00)]
+
+B. Ghost mood
+- genre=pop, mood=triumphant, energy=0.8
+PROFILE B - GHOST MOOD: mood=triumphant does not exist in the catalog
+------------------------------------------------------------------------
+ 1.98  Sunrise City         energy=0.82  [genre match (+1.0), energy close (+0.98)]
+ 1.87  Gym Hero             energy=0.93  [genre match (+1.0), energy close (+0.87)]
+ 1.00  Concrete Sunrise     energy=0.80  [energy close (+1.00)]
+ 0.96  Rooftop Lights       energy=0.76  [energy close (+0.96)]
+ 0.95  Night Drive Loop     energy=0.75  [energy close (+0.95)]
+
+D. Impossible energy
+- energy=2.0
+PROFILE D - IMPOSSIBLE ENERGY: energy=2.0 (out of valid 0-1 range)
+------------------------------------------------------------------------
+ 2.82  Sunrise City         energy=0.82  [genre match (+1.0), mood match (+2.0), energy close (+-0.18)]
+ 1.76  Rooftop Lights       energy=0.76  [mood match (+2.0), energy close (+-0.24)]
+ 0.93  Gym Hero             energy=0.93  [genre match (+1.0), energy close (+-0.07)]
+-0.02  Iron Verdict         energy=0.98  [energy close (+-0.02)]
+-0.05  Neon Overdrive       energy=0.95  [energy close (+-0.05)]
+
 ---
 
 ## Limitations and Risks
@@ -141,6 +177,19 @@ Examples:
 
 You will go deeper on this in your model card.
 
+- **Tiny catalog:** Only 19 songs, and most genres have just one song, so niche
+  tastes get few real matches.
+- **Only three features:** It uses genre, mood, and energy only — it ignores
+  tempo, danceability, and acousticness, and has no idea about lyrics or language.
+- **Exact matches only:** "indie pop" gets no credit toward "pop," and "euphoric"
+  none toward "happy," so it can't recognize similar-but-not-identical taste.
+- **Energy favors average tastes:** Users wanting very high or very low energy
+  match fewer songs, so their results are weaker than a mid-energy user's.
+- **Fills gaps with energy:** When genre and mood don't match, energy alone
+  decides, so off-genre songs can sneak into the recommendations.
+
+I explore these more in the model card.
+
 ---
 
 ## Reflection
@@ -154,5 +203,9 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 At the start of the project, when testing a user profile for super pop and happy, the scorer ranked intense rock above chill lofi for a happy-pop user because energy was the only tiebreaker.
+
+I think this practice helped me understand why my favorite music app YOutube Music works the way it does. It's own AI can judge a user based on interactions with mood and genre. for me perosnally I wanted to really judge a song and reccomend to my users about the moods they seem to be setting. I think mood defines everything about what you want to listen to so it's rated the hardest.
+
+AI tools helped me understand the big and littlest pictures about how reccomendation tools worked. It overviewed how the Youtube music app operates and then I wrapped my project around those basics. AI also created test profiles and tested them against the algorithm I wanted to make sure the results I wanted to get were really happening
 
 
