@@ -38,13 +38,17 @@ The info the UserProfile stores is
 The Recommender computes a score for each song by
 It adds up points for how well a song matches the user:
  - +points if the song's genre matches favorite_genre
- - +points if the song's mood matches favorite_mood
+ - +2 points if the song's mood matches favorite_mood
  - +points the CLOSER the song's energy is to target_energy
        (score = 1 − |target_energy − song.energy|, so closer = higher)
 Each part can be weighted so some features matter more than others.
 
 Every song gets a score, then the list is sorted from highest to lowest,
 and the top 5 are shared as the recommendations.
+
+My Algorithm Recipe: For each song, the recommender starts at a score of 0 and adds points for how well the song matches the user. It adds 2 points if the mood matches the user's favorite mood, 1 point if the genre matches the user's favorite genre, and up to 1 point for energy based on how close the song's energy is to the user's target (using 1 − |target_energy − song.energy|, so a closer match scores higher). I weight mood above genre because matching how the listener currently feels matters more to me than matching a genre label, so genre acts as a secondary tie-breaker. Once every song has a score, the recommender sorts them from highest to lowest and returns the top 5. This means a chill lofi song can rank above an intense pop song for a chill-mood user, even when pop is the user's favorite genre.
+
+Quick map of the data flow to plan your logic: Input (User Prefs) → Process (The Loop: Judging every individual song in the CSV using your scoring logic) → Output (The Ranking: Top K Recommendations).
 ---
 
 ## Getting Started
@@ -133,6 +137,6 @@ Write 1 to 2 paragraphs here about what you learned:
 
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
-
+At the start of the project, when testing a user profile for super pop and happy, the scorer ranked intense rock above chill lofi for a happy-pop user because energy was the only tiebreaker.
 
 
