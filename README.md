@@ -98,6 +98,22 @@ Paste a sample of your recommender's output here as a text block so a reader can
 #   2. ...
 #   3. ...
 ```
+Top recommendations:
+
+Sunrise City - Score: 3.98
+Because: genre match (+2.0), mood match (+1.0), energy close (+0.98)
+
+Gym Hero - Score: 2.87
+Because: genre match (+2.0), energy close (+0.87)
+
+Rooftop Lights - Score: 1.96
+Because: mood match (+1.0), energy close (+0.96)
+
+Concrete Sunrise - Score: 1.00
+Because: energy close (+1.00)
+
+Night Drive Loop - Score: 0.95
+Because: energy close (+0.95)
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
