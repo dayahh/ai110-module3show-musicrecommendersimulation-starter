@@ -26,9 +26,25 @@ Some prompts to answer:
 - What information does your `UserProfile` store
 - How does your `Recommender` compute a score for each song
 - How do you choose which songs to recommend
+In a real world system, data can be pulled from a user or data can be pulled from a user and their com,unity to determine what to reccomend next.
 
 You can include a simple diagram or bullet list if helpful.
+Song will have these values:
+  - what's in the data: id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
+ - what's being scored id,title,artist,genre,mood,energy,
+The info the UserProfile stores is 
+ - favorite: genre, mood, and target energy
+ - likes_acoustic is stored but not used because I don't think it's important
+The Recommender computes a score for each song by
+It adds up points for how well a song matches the user:
+ - +points if the song's genre matches favorite_genre
+ - +points if the song's mood matches favorite_mood
+ - +points the CLOSER the song's energy is to target_energy
+       (score = 1 − |target_energy − song.energy|, so closer = higher)
+Each part can be weighted so some features matter more than others.
 
+Every song gets a score, then the list is sorted from highest to lowest,
+and the top 5 are shared as the recommendations.
 ---
 
 ## Getting Started
